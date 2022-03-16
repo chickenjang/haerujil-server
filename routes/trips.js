@@ -11,60 +11,60 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.get("/:id", getPost, (req, res) => {
-//   res.send(res.post);
-// });
+router.get("/:id", getTrip, (req, res) => {
+  res.send(res.trip);
+});
 
-// router.post("/", async (req, res) => {
-//   try {
-//     const newPost = await Post.create({
-//       title: req.body.title,
-//       author: req.body.author,
-//       body: req.body.body,
-//       createdAt: req.body.createdAt,
-//       grade: req.body.grade,
-//     });
-//     res.status(201).json(newPost);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// });
+router.post("/", async (req, res) => {
+  try {
+    const newTrip = await Trip.create({
+      title: req.body.title,
+      author: req.body.author,
+      body: req.body.body,
+      createdAt: req.body.createdAt,
+      like: req.body.like,
+    });
+    res.status(201).json(newTrip);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
-// router.patch("/:id", getPost, async (req, res) => {
-//   res.post.title = req.body.title;
-//   res.post.author = req.body.author;
-//   res.post.body = req.body.body;
-//   res.post.grade = req.body.grade;
+router.patch("/:id", getTrip, async (req, res) => {
+  res.post.title = req.body.title;
+  res.post.author = req.body.author;
+  res.post.body = req.body.body;
+  res.post.like = req.body.like;
 
-//   try {
-//     const updatedPost = await res.post.save();
-//     res.json(updatedPost);
-//   } catch (error) {
-//     res.status(400).json({ message: error.message });
-//   }
-// });
+  try {
+    const updatedTrip = await res.trip.save();
+    res.json(updatedTrip);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
-// router.delete("/:id", getPost, async (req, res) => {
-//   try {
-//     await res.post.remove();
-//     res.json({ message: "deleted post" });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
+router.delete("/:id", getTrip, async (req, res) => {
+  try {
+    await res.trip.remove();
+    res.json({ message: "deleted trip" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
-// async function getPost(req, res, next) {
-//   let post;
-//   try {
-//     post = await Post.findById(req.params.id);
-//     if (post == null) {
-//       return res.status(404).json({ message: "cannot find post" });
-//     }
-//   } catch (error) {
-//     return res.status(500).json({ message: error.message });
-//   }
-//   res.post = post;
-//   next();
-// }
+async function getTrip(req, res, next) {
+  let trip;
+  try {
+    trip = await Trip.findById(req.params.id);
+    if (trip == null) {
+      return res.status(404).json({ message: "cannot find trip" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+  res.trip = trip;
+  next();
+}
 
 module.exports = router;
